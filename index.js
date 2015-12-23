@@ -18,19 +18,19 @@ var TEMPLATE_FILES_DIR = path.join(__dirname, 'template-files');
 function makeDeb(options) {
     // Validate options.
     if (!validate.isValidString(options.packageName)) {
-        return Promise.reject('packageName must be a string with non-zero length');
+        return Promise.reject(new Error('packageName must be a string with non-zero length'));
     }
 
     if (!validate.isValidVersion(options.version)) {
-        return Promise.reject('version must be a number or a string with non-zero length');
+        return Promise.reject(new Error('version must be a number or a string with non-zero length'));
     }
 
     if (!validate.isRealDirectory(options.buildDir)) {
-        return Promise.reject('buildDir must be a real directory');
+        return Promise.reject(new Error('buildDir must be a real directory'));
     }
 
     if (!validate.isValidAbsolutePath(options.installPath)) {
-        return Promise.reject('installPath must be a valid absolute path');
+        return Promise.reject(new Error('installPath must be a valid absolute path'));
     }
 
     // Build DEB package.
