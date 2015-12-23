@@ -74,12 +74,12 @@ function makeDeb(options) {
     })
     .then(function() {
         // Move built package to outDir.
-        this.debFile = this.tempBuildDir + '.deb';
-        return fse.moveAsync(this.debFile, path.join(options.outDir, path.basename(this.debFile)),
-                             { clobber: options.overwrite });
+        var debFile = this.tempBuildDir + '.deb';
+        this.finalPackage = path.join(options.outDir, path.basename(debFile));
+        return fse.moveAsync(debFile, this.finalPackage, { clobber: options.overwrite });
     })
     .then(function() {
-        return this.debFile;
+        return this.finalPackage;
     })
     .catch(function(error) {
         throw new Error('Unable to create package: '+ error.message);
