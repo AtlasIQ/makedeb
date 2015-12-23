@@ -33,6 +33,16 @@ function makeDeb(options) {
         return Promise.reject(new Error('installPath must be a valid absolute path'));
     }
 
+    // Set up defaults
+    options = _(options).defaults({
+        architecture: 'all',
+        essential: 'no',
+        overwrite: true,
+        packageDescription: '',
+        priority: 'optional',
+        section: 'main'
+    });
+
     // Build DEB package.
     return getTempBuildDir(options.packageName, options.version)
     .bind({})
@@ -105,15 +115,7 @@ function writeDebianFiles(tempBuildDir, options) {
     .then(function(controlFileTemplate) {
         controlFileTemplate = _(controlFileTemplate).template();
 
-        var values = _(options).defaults({
-            section: 'main',
-            priority: 'optional',
-            architecture: 'all',
-            essential: 'no',
-            packageDescription: ''
-        });
-
-        var controlFileContents = controlFileTemplate(values);
+        var controlFileContents = controlFileTemplate(options);
         return fse.writeFileAsync(path.join(debianDir, 'control'), controlFileContents);
     });
 }

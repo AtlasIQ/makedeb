@@ -34,7 +34,7 @@ makedeb({
 	buildDir: path.join(__dirname, 'dist'),
 	outDir: path.join(__dirname, 'artifacts'),
 	installPath: '/opt/example/sample',
-	overwrite: true,
+	overwrite: false,
 
 	// debian control file options
 	maintainer: 'admin@example.com',
@@ -76,7 +76,7 @@ The maintainer of the package.
 ### Optional Options
 
 #### overwite
-`Default: false`
+`Default: true`
 
 If a DEB package with the same name already exists, whether or not to
 overwrite it.
