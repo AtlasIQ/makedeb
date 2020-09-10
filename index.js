@@ -99,10 +99,7 @@ function getTempBuildDir(packageName, version) {
 function tarDir(dir) {
     var archiveName = path.basename(dir) +'.orig.tar.xz';
     var archivePath = path.join(path.dirname(dir), archiveName);
-    
-    var cmd = 'tar cfJ '+ archivePath +' '+ dir;
-    cmd = cmd.split(' ');
-    return exec(cmd[0], cmd.slice(1));
+    return exec('tar', ['cfJ', archivePath, dir]);
 }
 
 // Write the required files into the DEBIAN directory.
