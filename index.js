@@ -121,9 +121,7 @@ function writeDebianFiles(tempBuildDir, options) {
 
 // Run dpkg to make the .deb file.
 function dpkg(tempBuildDir) {
-    var cmd = 'dpkg -b '+ tempBuildDir;
-    cmd = cmd.split(' ');
-    return exec(cmd[0], cmd.slice(1));
+    return exec('dpkg', ['-b', tempBuildDir]);
 }
 
 module.exports = makeDeb;
