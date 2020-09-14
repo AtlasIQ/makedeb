@@ -1,5 +1,5 @@
 var _ = require('underscore');
-var exec = require('child_process').exec;
+var exec = require('child_process').execFile;
 var fse = require('fs-extra');
 var path = require('path');
 var Promise = require('bluebird');
@@ -99,8 +99,7 @@ function getTempBuildDir(packageName, version) {
 function tarDir(dir) {
     var archiveName = path.basename(dir) +'.orig.tar.xz';
     var archivePath = path.join(path.dirname(dir), archiveName);
-
-    return exec('tar cfJ '+ archivePath +' '+ dir);
+    return exec('tar', ['cfJ', archivePath, dir]);
 }
 
 // Write the required files into the DEBIAN directory.
@@ -122,7 +121,7 @@ function writeDebianFiles(tempBuildDir, options) {
 
 // Run dpkg to make the .deb file.
 function dpkg(tempBuildDir) {
-    return exec('dpkg -b '+ tempBuildDir);
+    return exec('dpkg', ['-b', tempBuildDir]);
 }
 
 module.exports = makeDeb;
